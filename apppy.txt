@@ -975,7 +975,7 @@ if opcion == "Libros Catalogados":
         )
         badge_idioma = f"  🌐 [{idm_val}]"
         badge_ub = f"  📍 [{ubicacion_val}]" if ubicacion_val else ""
-        titulo_expander = f"{icono_expander} {tit} — {aut} ({anio_val or 'S/D'})  |  🏷 [{tem_val or 'General'}]{badge_idioma}{badge_formato}{badge_ub}"
+        titulo_expander = f"{icono_expander} {tit} — {aut} ({anio_val or 'S/D'})  |  🏷️️ [{tem_val or 'General'}]{badge_idioma}{badge_formato}{badge_ub}"
 
         with st.expander(titulo_expander, expanded=False):
           if es_pendiente:

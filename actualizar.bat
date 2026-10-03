@@ -1,13 +1,7 @@
 @echo off
-echo =========================================
-echo  Actualizando biblioteca en la nube...
-echo =========================================
-cd /d "%~dp0"
+echo Actualizando la biblioteca en GitHub...
 git add .
-git commit -m "Actualizacion de base de datos"
+git commit -m "Actualizacion automatica de libros"
 git push origin main
-echo.
-echo =========================================
-echo  ¡Actualizacion completada con exito!
-echo =========================================
+echo ¡Proceso completado con exito!
 pause
