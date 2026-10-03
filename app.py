@@ -688,6 +688,38 @@ if st.sidebar.button("🔄 Completar datos antiguos con IA"):
       time.sleep(2)
       st.rerun()
 
+# --- NUEVA OPCIÓN: ACTUALIZAR EN LA NUBE ---
+if st.sidebar.button("🔄 Actualizar en la nube"):
+  with st.sidebar.status("Actualizando biblioteca...", expanded=True) as status:
+    try:
+      st.write("Añadiendo cambios...")
+      subprocess.run(["git", "add", "."], check=True)
+
+      st.write("Guardando cambios...")
+      subprocess.run(
+          [
+              "git",
+              "commit",
+              "-m",
+              "Actualización automática de base de datos y registros",
+          ],
+          check=True,
+      )
+
+      st.write("Subiendo a GitHub...")
+      subprocess.run(["git", "push", "origin", "main"], check=True)
+
+      status.update(
+          label="¡Actualización completada con éxito!",
+          state="complete",
+          expanded=False,
+      )
+    except subprocess.CalledProcessError as e:
+      status.update(
+          label="Error en la actualización", state="error", expanded=True
+      )
+      st.error(f"Detalles del error: {e}")
+
 st.sidebar.markdown("---")
 st.sidebar.subheader("📥 Exportar Datos")
 
