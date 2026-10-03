@@ -36,8 +36,7 @@ API_KEY = (
     or "AQ.Ab8RN6IFQ8QOJm_qtJdGnu2j5Zjir8nr6Vc0ADc6g7jwrlmkOQ"
 )
 
-# Modelo oficial actualizado compatible con la API en la nube
-MODELO_OFICIAL = "gemini-2.5-flash"
+MODELO_OFICIAL = "gemini-3.8-flash"
 LIMITE_DIARIO = 5000  # Cuota ampliada para cuentas de pago
 
 # --- INYECCIÓN DE ESTILOS CSS "BIBLIOTECA CÁLIDA" ---
@@ -117,17 +116,14 @@ def cargar_mapamundi_html():
   img_tag = ""
 
   if os.path.exists(nombre_archivo):
-    try:
-      with open(nombre_archivo, "rb") as f:
-        b64_data = base64.b64encode(f.read()).decode("utf-8")
-        img_tag = (
-            f'<img src="data:image/jpeg;base64,{b64_data}" alt="Mapamundi del'
-            ' Beato de Osma" style="width: 110px; height: 85px; object-fit:'
-            " cover; border-radius: 8px; border: 2px solid #8B5A2B; box-shadow: 0"
-            ' 2px 6px rgba(0,0,0,0.15);">'
-        )
-    except Exception:
-      img_tag = '<div style="font-size: 2.8rem; line-height: 1;">📜</div>'
+    with open(nombre_archivo, "rb") as f:
+      b64_data = base64.b64encode(f.read()).decode("utf-8")
+      img_tag = (
+          f'<img src="data:image/jpeg;base64,{b64_data}" alt="Mapamundi del'
+          ' Beato de Osma" style="width: 110px; height: 85px; object-fit:'
+          " cover; border-radius: 8px; border: 2px solid #8B5A2B; box-shadow: 0"
+          ' 2px 6px rgba(0,0,0,0.15);">'
+      )
   else:
     img_tag = '<div style="font-size: 2.8rem; line-height: 1;">📜</div>'
 
@@ -978,7 +974,7 @@ if opcion == "Libros Catalogados":
         )
         badge_idioma = f"  🌐 [{idm_val}]"
         badge_ub = f"  📍 [{ubicacion_val}]" if ubicacion_val else ""
-        titulo_expander = f"{icono_expander} {tit} — {aut} ({anio_val or 'S/D'})  |  🏷 [{tem_val or 'General'}]{badge_idioma}{badge_formato}{badge_ub}"
+        titulo_expander = f"{icono_expander} {tit} — {aut} ({anio_val or 'S/D'})  |  🏷️️ [{tem_val or 'General'}]{badge_idioma}{badge_formato}{badge_ub}"
 
         with st.expander(titulo_expander, expanded=False):
           if es_pendiente:
@@ -999,7 +995,7 @@ if opcion == "Libros Catalogados":
 
           with col_img:
             if port_val:
-              st.image(port_val, caption="Portada", width=150)
+              st.image(port_val, caption="Portada", use_container_width=True)
             else:
               st.info("Sin portada")
 
@@ -1502,7 +1498,9 @@ elif opcion == "Añadir lote de libros":
 
   if foto:
     image = Image.open(foto)
-    st.image(image, caption="Fotografía del lote cargada", width=600)
+    st.image(
+        image, caption="Fotografía del lote cargada", use_container_width=True
+    )
 
     if st.button("🔍 Detectar lomos automáticamente desde la foto"):
       if restantes < 1:
@@ -1666,7 +1664,11 @@ elif opcion == "Añadir lote de libros":
         with c_img:
           url_portada = libro.get("portada_url", "")
           if url_portada:
-            st.image(url_portada, caption="Portada Detectada", width=150)
+            st.image(
+                url_portada,
+                caption="Portada Detectada",
+                use_container_width=True,
+            )
           else:
             st.info("Sin portada")
 
